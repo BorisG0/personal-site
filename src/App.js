@@ -3,21 +3,21 @@ import GuessGame from './GuessGame';
 function App() {
   return (
     <>
-      <div class="window">
-        <div class="title-bar">
-          <div class="title-bar-text">Boris Gratchev</div>
-          <div class="title-bar-controls">
+      <div className="window">
+        <div className="title-bar">
+          <div className="title-bar-text">Boris Gratchev</div>
+          <div className="title-bar-controls">
             <button aria-label="Minimize"></button>
             <button aria-label="Maximize"></button>
             <button aria-label="Close"></button>
           </div>
         </div>
-        <div class="window-body">
+        <div className="window-body">
           <p>This is my personal website!</p>
 
-          <div class="field-row">
+          <div className="field-row">
             <input type="checkbox" id="box1" />
-            <label for="box1">Check me</label>
+            <label htmlFor="box1">Check me</label>
           </div>
 
           <br />
