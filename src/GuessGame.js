@@ -10,18 +10,12 @@ function GuessGame() {
         setInputValue(event.target.value);
     }
 
-    const addToGuessHistory = (guess) => {
-        console.log('Adding to guess history:', guess);
-        setGuessHistory([...guessHistory, guess]);
-        console.log('Guess history:', guessHistory);
-    }
-
     const sendGuess = async (guess) => {
         try {
 
             const response = await axios.post('http://localhost:8080/guess', { number: guess });
             // const response = await axios.get('http://localhost:8080/');
-            console.log('Response:', response.data);
+            // console.log('Response:', response.data);
             setGuessHistory([...guessHistory, { number: guess, response: response.data }]);
         } catch (error) {
             console.error('Error sending guess:', error);
@@ -30,7 +24,7 @@ function GuessGame() {
 
     const handleStartSend = (event) => {
         event.preventDefault();
-        console.log('input value: ' + inputValue)
+        // console.log('input value: ' + inputValue)
         sendGuess(Number(inputValue));
         setInputValue('')
     };
