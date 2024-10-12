@@ -4,15 +4,25 @@ import axios from 'axios';
 function GuessGame() {
 
     const [inputValue, setInputValue] = useState('');
+    const [guessHistory, setGuessHistory] = useState([]);
+
     const handleInputValue = (event) => {
         setInputValue(event.target.value);
     }
 
+    const addToGuessHistory = (guess) => {
+        console.log('Adding to guess history:', guess);
+        setGuessHistory([...guessHistory, guess]);
+        console.log('Guess history:', guessHistory);
+    }
+
     const sendGuess = async (guess) => {
         try {
-            const response = await axios.post('http://localhost:8080/guess', { number: Number(guess)});
+            
+            const response = await axios.post('http://localhost:8080/guess', { number: guess});
             // const response = await axios.get('http://localhost:8080/');
             console.log('Response:', response.data);
+            setGuessHistory([...guessHistory, {number: guess, response: response.data}]);
         } catch (error) {
             console.error('Error sending guess:', error);
         }
@@ -20,7 +30,7 @@ function GuessGame() {
 
     const handleButtonClick = () => {
         console.log('input value: ' + inputValue)
-        sendGuess(inputValue);
+        sendGuess(Number(inputValue));
     };
 
     return (
@@ -37,7 +47,14 @@ function GuessGame() {
                 <div className="window-body">
                     <pre>Microsoft&#10094;R&#10095; Windows DOS
                         &#10094;C&#10095; Copyright Microsoft Corp 1990-2001.
-                        <br />C:&#92;WINDOWS&#92;SYSTEM32{">"} Try to guess my favourite number
+                        <br/>
+                        <br />Try to guess my favourite number
+                        {guessHistory.map((guess, index) => (
+                            <div key={index}>
+                                C:&#92;WINDOWS&#92;SYSTEM32{">"}{guess.number}
+                                <br/>{guess.response}
+                            </div>
+                        ))}
                     </pre>
                 </div>
             </div>
